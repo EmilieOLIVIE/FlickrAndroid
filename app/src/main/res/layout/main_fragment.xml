@@ -45,7 +45,7 @@
         android:id="@+id/photoTitle"
         android:layout_width="231dp"
         android:layout_height="48dp"
-        android:text="TextView"
+        android:text="Loading..."
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/photo"
         app:layout_constraintEnd_toEndOf="parent"

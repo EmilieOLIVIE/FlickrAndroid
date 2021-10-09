@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.ImageView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -35,6 +36,13 @@ class MyAdapter(val photos : List<Photo>, val callback: (Int) -> Unit) : Recycle
         //Retrieve photo information from currently considered photo
         val photo = photos[position]
         val url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id+"_"+photo.secret + ".jpg"
+        //Add listener to image so that click redirect to fullFragment
+        photoView.setOnClickListener{
+            //Action refers to corresponding nav graph link
+            val action = ListFragmentDirections.toFullFragment(url)
+            //Bind navigation action to view
+            Navigation.findNavController(holder.v).navigate(action)
+        }
         //Insert photo fetched from url
         Glide.with(holder.v).load(url).into(photoView);
 

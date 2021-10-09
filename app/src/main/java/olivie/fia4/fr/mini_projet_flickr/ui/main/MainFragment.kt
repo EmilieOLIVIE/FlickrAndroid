@@ -47,6 +47,13 @@ class MainFragment : Fragment() {
             allImgButton.setOnClickListener {
                 Navigation.findNavController(layout).navigate(R.id.toListFragment);
             }
+            //Redirect to FullFragment upon clicking on photo
+            photoView.setOnClickListener{
+                //Action refers to corresponding nav graph link
+                val action = MainFragmentDirections.toFullFragment(url)
+                //Bind navigation action to view
+                Navigation.findNavController(layout).navigate(action)
+            }
         })
 
         nextImgButton.setOnClickListener {

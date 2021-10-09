@@ -13,10 +13,26 @@
         <action
             android:id="@+id/toListFragment"
             app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/toFullFragment"
+            app:destination="@id/fullFragment" />
     </fragment>
     <fragment
         android:id="@+id/listFragment"
         android:name="olivie.fia4.fr.mini_projet_flickr.ui.list.ListFragment"
         android:label="list_fragment"
-        tools:layout="@layout/list_fragment" />
+        tools:layout="@layout/list_fragment" >
+        <action
+            android:id="@+id/toFullFragment"
+            app:destination="@id/fullFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fullFragment"
+        android:name="olivie.fia4.fr.mini_projet_flickr.ui.full.FullFragment"
+        android:label="fragment_full"
+        tools:layout="@layout/full_fragment" >
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
 </navigation>
