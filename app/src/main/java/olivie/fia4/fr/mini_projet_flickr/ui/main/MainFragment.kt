@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import olivie.fia4.fr.mini_projet_flickr.R
 import olivie.fia4.fr.mini_projet_flickr.model.Photo
@@ -27,17 +28,25 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val layout = inflater.inflate(R.layout.main_fragment, container, false)
+        //Initialise View Model on view creation
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         val nextImgButton = layout.findViewById<Button>(R.id.nextImage)
         val allImgButton = layout.findViewById<Button>(R.id.allImages)
         val photoTitle = layout.findViewById<TextView>(R.id.photoTitle)
         val photoView = layout.findViewById<ImageView>(R.id.photo)
 
-        viewModel.photos.observe(this, Observer<Photo> { photo ->
+        //Observe changes in View Model
+        viewModel.photo.observe(this, Observer<Photo> { photo ->
             val url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id+"_"+photo.secret + ".jpg"
+            //Set photo title in TextView
             photoTitle.text = photo.title
-
+            //Insert photo fetched from url into layout
             Glide.with(layout).load(url).into(photoView);
+            //Redirect to ListFragment upon clicking on "All images"
+            allImgButton.setOnClickListener {
+                Navigation.findNavController(layout).navigate(R.id.toListFragment);
+            }
         })
 
         nextImgButton.setOnClickListener {

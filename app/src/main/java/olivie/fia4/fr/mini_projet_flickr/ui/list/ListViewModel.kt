@@ -1,4 +1,4 @@
-package olivie.fia4.fr.mini_projet_flickr.ui.main
+package olivie.fia4.fr.mini_projet_flickr.ui.list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,9 +9,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel : ViewModel() {
+class ListViewModel : ViewModel() {
 
-    val photo = MutableLiveData<Photo>()
+    val photos = MutableLiveData<List<Photo>>()
     val photosList = mutableListOf<Photo>()
 
     init {
@@ -23,25 +23,12 @@ class MainViewModel : ViewModel() {
                     //Add photo to the list
                     photosList.add(photo)
                 }
-                nextPhoto()
+                //Display photos list
+                photos.value = photosList
             }
 
             override fun onFailure(call: Call<SearchResult>, t: Throwable) { }
         })
-    }
-
-    fun nextPhoto() {
-        var nextIndex = 0
-
-        //Get index of currently displayed photo
-        val currentIndex = photosList.indexOf(photo.value)
-        nextIndex = currentIndex + 1
-        //If at the end of the list, start to the beginning
-        if(currentIndex === photosList.size - 1) {
-            nextIndex = 0
-        }
-        //Set displayed photo value to next photo in list
-        photo.value = photosList[nextIndex]
     }
 
 }
