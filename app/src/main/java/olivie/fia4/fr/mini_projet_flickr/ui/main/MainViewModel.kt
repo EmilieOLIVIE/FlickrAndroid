@@ -36,7 +36,7 @@ class MainViewModel : ViewModel() {
         //Get index of currently displayed photo
         val currentIndex = photosList.indexOf(photo.value)
         nextIndex = currentIndex + 1
-        //If at the end of the list, start to the beginning
+        //If at the end of the list, start from the beginning
         if(currentIndex === photosList.size - 1) {
             nextIndex = 0
         }
