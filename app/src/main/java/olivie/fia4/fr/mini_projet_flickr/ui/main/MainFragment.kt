@@ -31,6 +31,7 @@ class MainFragment : Fragment() {
         //Initialise View Model on view creation
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
+        //Find layout components for further use
         val nextImgButton = layout.findViewById<Button>(R.id.nextImage)
         val allImgButton = layout.findViewById<Button>(R.id.allImages)
         val photoTitle = layout.findViewById<TextView>(R.id.photoTitle)
@@ -43,10 +44,12 @@ class MainFragment : Fragment() {
             photoTitle.text = photo.title
             //Insert photo fetched from url into layout
             Glide.with(layout).load(url).into(photoView);
+
             //Redirect to ListFragment upon clicking on "All images"
             allImgButton.setOnClickListener {
                 Navigation.findNavController(layout).navigate(R.id.toListFragment);
             }
+
             //Redirect to FullFragment upon clicking on photo
             photoView.setOnClickListener{
                 //Action refers to corresponding nav graph link
@@ -56,6 +59,7 @@ class MainFragment : Fragment() {
             }
         })
 
+        //Display next photo upon clicking on "Next" button
         nextImgButton.setOnClickListener {
             viewModel.nextPhoto()
         }

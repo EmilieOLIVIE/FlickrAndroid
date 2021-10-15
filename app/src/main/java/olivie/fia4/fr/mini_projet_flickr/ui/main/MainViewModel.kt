@@ -15,14 +15,14 @@ class MainViewModel : ViewModel() {
     val photosList = mutableListOf<Photo>()
 
     init {
+        //Call repository function to fetch Flickr photos from API
         Repository().getPhotos(object: Callback<SearchResult> {
             override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
                 //Retrieve photos fetched from API
-                val res = response.body()?.photos
-                for (photo in res?.photo!!) {
-                    //Add photo to the list
-                    photosList.add(photo)
-                }
+                val result = response.body()?.photos?.photo
+                //Add each photo of the result of the call to our photosList
+                result?.forEach{ photo -> photosList.add(photo) }
+                //Display the first photo
                 nextPhoto()
             }
 
@@ -30,7 +30,11 @@ class MainViewModel : ViewModel() {
         })
     }
 
+    /**
+     * Display the next photo in photosList
+     */
     fun nextPhoto() {
+<<<<<<< HEAD
         var nextIndex = 0
 
         //Get index of currently displayed photo
@@ -40,8 +44,16 @@ class MainViewModel : ViewModel() {
         if(currentIndex === photosList.size - 1) {
             nextIndex = 0
         }
+=======
+        //Get index of currently displayed photo (index will be -1 if photo.value is null)
+        var index = photosList.indexOf(photo.value)
+        //If at the end of the list, start from the beginning
+        if(index === photosList.size - 1) index = 0
+        //Else, increment index
+        else index++
+>>>>>>> small refac
         //Set displayed photo value to next photo in list
-        photo.value = photosList[nextIndex]
+        photo.value = photosList[index]
     }
 
 }

@@ -15,14 +15,13 @@ class ListViewModel : ViewModel() {
     val photosList = mutableListOf<Photo>()
 
     init {
+        //Call repository function to fetch Flickr photos from API
         Repository().getPhotos(object: Callback<SearchResult> {
             override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
                 //Retrieve photos fetched from API
-                val res = response.body()?.photos
-                for (photo in res?.photo!!) {
-                    //Add photo to the list
-                    photosList.add(photo)
-                }
+                val result = response.body()?.photos?.photo
+                //Add each photo of the result of the call to our photosList
+                result?.forEach{ photo -> photosList.add(photo) }
                 //Display photos list
                 photos.value = photosList
             }
