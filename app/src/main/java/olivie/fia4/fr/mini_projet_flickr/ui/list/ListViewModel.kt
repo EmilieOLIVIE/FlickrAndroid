@@ -1,5 +1,6 @@
 package olivie.fia4.fr.mini_projet_flickr.ui.list
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import olivie.fia4.fr.mini_projet_flickr.model.Photo
@@ -26,7 +27,9 @@ class ListViewModel : ViewModel() {
                 photos.value = photosList
             }
 
-            override fun onFailure(call: Call<SearchResult>, t: Throwable) { }
+            override fun onFailure(call: Call<SearchResult>, t: Throwable) {
+                Log.d("listViewModel", "getPhotos failure", t)
+            }
         })
     }
 

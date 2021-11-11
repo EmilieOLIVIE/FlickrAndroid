@@ -27,13 +27,13 @@ class ListFragment : Fragment() {
         //Initialise View Model on view creation
         viewModel = ListViewModel()
         //Observe changes in View Model
-        viewModel.photos.observe(this, Observer { photo ->
+        viewModel.photos.observe(this, Observer { photos ->
             run {
                 val recycler = layout.findViewById<RecyclerView>(R.id.recyclerview)
-                recycler.layoutManager = GridLayoutManager(requireActivity(),2)
-                recycler.adapter = MyAdapter(photo) { position ->            } }
+                recycler.layoutManager = GridLayoutManager(requireActivity(), 2)
+                recycler.adapter = MyAdapter(photos)
+            }
         })
-
         return layout
     }
 

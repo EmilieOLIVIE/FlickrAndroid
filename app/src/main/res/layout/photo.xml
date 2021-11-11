@@ -9,8 +9,7 @@
     <ImageView
         android:id="@+id/photo"
         android:layout_columnWeight="1"
-        android:layout_height="200dp"
-
+        android:layout_rowWeight="1"
         tools:src="@tools:sample/backgrounds/scenic" />
 
 </GridLayout>

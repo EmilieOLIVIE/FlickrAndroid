@@ -10,27 +10,23 @@ import com.bumptech.glide.Glide
 import olivie.fia4.fr.mini_projet_flickr.R
 import olivie.fia4.fr.mini_projet_flickr.model.Photo
 
-class MyAdapter(val photos : List<Photo>, val callback: (Int) -> Unit) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class MyAdapter(val photos : List<Photo>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
     //ViewHolder stocks each list item View
-    class MyViewHolder(val v: GridLayout) : RecyclerView.ViewHolder(v) {
-        var previousPos : Int? = null
-    }
-
+    class MyViewHolder(val v: GridLayout) : RecyclerView.ViewHolder(v)
 
     //Called when ViewHolder is created
     //"photo" Layout is created and placed in ViewHolder
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyAdapter.MyViewHolder {
-        val layout = LayoutInflater.from(parent.context).inflate(R.layout.photo,parent,false)
-        val holder = MyViewHolder(layout as GridLayout)
-        return holder
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val layout = LayoutInflater.from(parent.context).inflate(R.layout.photo, parent, false)
+        return MyViewHolder(layout as GridLayout)
     }
 
     //Called when RecyclerView needs to know the size of the list to display
     override fun getItemCount(): Int = photos.size
 
     //Called by RecyclerView to display the data at the specified position
-    override fun onBindViewHolder(holder: MyAdapter.MyViewHolder, position:Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position:Int) {
         val photoView = holder.v.findViewById<ImageView>(R.id.photo)
 
         //Retrieve photo information from currently considered photo
@@ -46,7 +42,7 @@ class MyAdapter(val photos : List<Photo>, val callback: (Int) -> Unit) : Recycle
         }
 
         //Insert photo fetched from url
-        Glide.with(holder.v).load(url).into(photoView);
+        Glide.with(holder.v).load(url).into(photoView)
     }
 
 }
