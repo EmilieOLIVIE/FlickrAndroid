@@ -17,10 +17,6 @@ import olivie.fia4.fr.mini_projet_flickr.model.Photo
 
 class MainFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
     private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
@@ -32,22 +28,22 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         //Find layout components for further use
-        val nextImgButton = layout.findViewById<Button>(R.id.nextImage)
-        val allImgButton = layout.findViewById<Button>(R.id.allImages)
-        val photoTitle = layout.findViewById<TextView>(R.id.photoTitle)
-        val photoView = layout.findViewById<ImageView>(R.id.photo)
+        val nextImgButton:Button = layout.findViewById<Button>(R.id.nextImage)
+        val allImgButton:Button = layout.findViewById<Button>(R.id.allImages)
+        val photoTitle:TextView = layout.findViewById<TextView>(R.id.photoTitle)
+        val photoView:ImageView = layout.findViewById<ImageView>(R.id.photo)
 
         //Observe changes in View Model
-        viewModel.photo.observe(this, Observer<Photo> { photo ->
-            val url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id+"_"+photo.secret + ".jpg"
+        viewModel.photo.observe(viewLifecycleOwner, { photo ->
+            val url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg"
             //Set photo title in TextView
             photoTitle.text = photo.title
             //Insert photo fetched from url into layout
-            Glide.with(layout).load(url).into(photoView);
+            Glide.with(layout).load(url).into(photoView)
 
             //Redirect to ListFragment upon clicking on "All images"
             allImgButton.setOnClickListener {
-                Navigation.findNavController(layout).navigate(R.id.toListFragment);
+                Navigation.findNavController(layout).navigate(R.id.toListFragment)
             }
 
             //Redirect to FullFragment upon clicking on photo
@@ -65,12 +61,6 @@ class MainFragment : Fragment() {
         }
 
         return layout
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }

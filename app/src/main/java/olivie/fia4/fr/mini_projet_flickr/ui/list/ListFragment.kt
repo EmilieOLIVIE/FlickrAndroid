@@ -13,10 +13,6 @@ import olivie.fia4.fr.mini_projet_flickr.R
 
 class ListFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ListFragment()
-    }
-
     private lateinit var viewModel: ListViewModel
 
     override fun onCreateView(
@@ -27,7 +23,7 @@ class ListFragment : Fragment() {
         //Initialise View Model on view creation
         viewModel = ListViewModel()
         //Observe changes in View Model
-        viewModel.photos.observe(this, Observer { photos ->
+        viewModel.photos.observe(viewLifecycleOwner, { photos ->
             run {
                 val recycler = layout.findViewById<RecyclerView>(R.id.recyclerview)
                 recycler.layoutManager = GridLayoutManager(requireActivity(), 2)
@@ -35,12 +31,6 @@ class ListFragment : Fragment() {
             }
         })
         return layout
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }
